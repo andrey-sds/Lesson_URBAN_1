@@ -12,9 +12,9 @@ class Product:
 
 
 class Shop:
-    __file_name = '../products.txt'
 
     def get_products(self):
+        self.__file_name = '../products.txt'
         file = open(self.__file_name, 'r', encoding='utf-8')
         products = [file.read()]
         file.close()
@@ -32,7 +32,7 @@ class Shop:
             else:
                 file.write(f'{product}\n')
                 print(f'{product} добавлен в файл!')
-
+        file.close()
 
 
 s1 = Shop()
