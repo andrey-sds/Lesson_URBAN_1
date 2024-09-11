@@ -12,9 +12,10 @@ class Product:
 
 
 class Shop:
+    def __init__(self):
+        self.__file_name = '../products.txt'
 
     def get_products(self):
-        self.__file_name = '../products.txt'
         file = open(self.__file_name, 'r', encoding='utf-8')
         products = [file.read()]
         file.close()
