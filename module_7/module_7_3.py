@@ -31,7 +31,6 @@ class WordsFinder:
     def find(self, word):
         words = self.get_all_words()
         for key, value in words.items():
-            setattr(self, key, value)
             for i in value:
                 if i == word.lower():
                     cn = value.index(word.lower()) + 1
