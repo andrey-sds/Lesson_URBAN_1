@@ -40,21 +40,20 @@ class Cafe:
                 print(f"{guest.name} в очереди")
 
     def discuss_guests(self):
-        def discuss_guests(self):
-            while not self.queue.empty() or any(table.guest is not None for table in self.tables):
-                for table in self.tables:
-                    if table.guest is not None and not table.guest.is_alive():
-                        print(f"{table.guest.name} покушал(-а) и ушёл(ушла)")
-                        print(f"Стол номер {table.number} свободен")
-                        table.guest = None
+        while not self.queue.empty() or any(table.guest is not None for table in self.tables):
+            for table in self.tables:
+                if table.guest is not None and not table.guest.is_alive():
+                    print(f"{table.guest.name} покушал(-а) и ушёл(ушла)")
+                    print(f"Стол номер {table.number} свободен")
+                    table.guest = None
 
-                    if table.guest is None and not self.queue.empty():
-                        next_guest = self.queue.get()
-                        table.guest = next_guest
-                        next_guest.start()
-                        print(f"{next_guest.name} вышел(-ла) из очереди и сел(-а) за стол номер {table.number}")
+                if table.guest is None and not self.queue.empty():
+                    next_guest = self.queue.get()
+                    table.guest = next_guest
+                    next_guest.start()
+                    print(f"{next_guest.name} вышел(-ла) из очереди и сел(-а) за стол номер {table.number}")
 
-                sleep(1)
+            sleep(1)
 
 
 # Создание столов
