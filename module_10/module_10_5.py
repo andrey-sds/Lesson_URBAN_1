@@ -23,8 +23,8 @@ filenames = [f'Files/file {number}.txt' for number in range(1, 5)]
 
 # многопроцессность
 if __name__ == '__main__':
+    start_time = datetime.datetime.now()
     with multiprocessing.Pool(processes=4) as pool:
-        start_time = datetime.datetime.now()
         pool.map(read_info, filenames)
     end_time = datetime.datetime.now()
     print(end_time - start_time)
