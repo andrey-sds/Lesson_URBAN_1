@@ -23,17 +23,21 @@ async def main(request: Request) -> HTMLResponse:
 @app.get("/user/{user_id}")
 def get_user(request: Request, user_id: int) -> HTMLResponse:
     try:
-        return templates.TemplateResponse("users.html", {"request": request, "user": users[user_id-1]})
+        return templates.TemplateResponse("users.html", {"request": request, "user": users[user_id - 1]})
     except IndexError:
         raise HTTPException(status_code=404, detail="Message not found")
 
 
-@app.post("/user/{username}/{age}")
-async def create_user(request: Request,
-                      username: Annotated[
-                          str, Path(min_length=5, max_length=20, description="Enter username", example="UrbanUser")],
-                      age: Annotated[int, Path(ge=18, le=120, description="Enter age", example=18)]
-                      ) -> HTMLResponse:
+@app.post("/")  #user/{username}/{age}
+# async def create_user(request: Request,
+#                       username: Annotated[
+#                           str, Path(min_length=5, max_length=20, description="Enter username", example="UrbanUser")],
+#                       age: Annotated[int, Path(ge=18, le=120, description="Enter age", example=18)]
+#                       ) -> HTMLResponse:
+
+async def create_user(request: Request, username: str = Form(
+    min_length=5, max_length=20, description="Enter username", example="UrbanUser"),
+                      age: int = Form(ge=18, le=120, description="Enter age", example=18)) -> HTMLResponse:
     user_id = max((u.id for u in users), default=0) + 1
     new_user = User(id=user_id, username=username, age=age)
     users.append(new_user)
